@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - week1</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body class="bg-[#F8F8F8] text-black">
+
+    <!-- NAVBAR -->
+    <nav class="bg-[#E3350D] border-b-4 border-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- LEFT SIDE (LOGO + MENU) -->
+                <div class="flex items-center space-x-6">
+
+                    <!-- LOGO -->
+                    <span class="text-2xl font-extrabold tracking-widest text-white drop-shadow">
+                        GAMEWEB
+                    </span>
+
+                    <!-- MENU -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a asp-controller="User" asp-action="Home"
+                           class="px-3 py-1 border-2 border-black bg-white
+                                  shadow-[2px_2px_0_#000] font-bold text-sm">
+                            HOME
+                        </a>
+
+                        <a asp-controller="User" asp-action="Event"
+                           class="px-3 py-1 border-2 border-black bg-white
+                                  shadow-[2px_2px_0_#000] font-bold text-sm">
+                            EVENT
+                        </a>
+
+                        <a asp-controller="User" asp-action="TopUp"
+                           class="px-4 py-1 border-2 border-black bg-[#FFCB05]
+                                  shadow-[3px_3px_0_#000] font-extrabold text-sm">
+                            TOP-UP
+                        </a>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-controller="User" asp-action="PaymentHistory"
+                               class="px-3 py-1 border-2 border-black bg-white
+                                      shadow-[2px_2px_0_#000] font-bold text-sm">
+                                HISTORY
+                            </a>
+
+                            <a asp-controller="User" asp-action="Inventory"
+                               class="px-3 py-1 border-2 border-black bg-white
+                                      shadow-[2px_2px_0_#000] font-bold text-sm">
+                                INVENTORY
+                            </a>
+
+                            <a asp-controller="User" asp-action="Setting"
+                               class="px-3 py-1 border-2 border-black bg-white
+                                      shadow-[2px_2px_0_#000] font-bold text-sm">
+                                SETTING
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <!-- RIGHT ACTIONS -->
+                <div class="flex items-center space-x-3">
+
+                    <a asp-controller="User" asp-action="Download"
+                       class="px-3 py-1 border-2 border-black bg-[#4CAF50]
+                              shadow-[3px_3px_0_#000] font-bold text-sm">
+                        DOWNLOAD
+                    </a>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <span class="px-3 py-1 border-2 border-black bg-white
+                                     shadow-[2px_2px_0_#000] font-bold text-sm">
+                            @User.Identity.Name
+                        </span>
+
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="inline">
+                            <button type="submit"
+                                    class="px-3 py-1 border-2 border-black bg-black text-white
+                                           shadow-[2px_2px_0_#000] font-bold text-sm">
+                                LOGOUT
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Auth" asp-action="Login"
+                           class="px-3 py-1 border-2 border-black bg-white
+                                  shadow-[2px_2px_0_#000] font-bold text-sm">
+                            LOGIN
+                        </a>
+
+                        <a asp-controller="Auth" asp-action="Register"
+                           class="px-3 py-1 border-2 border-black bg-black text-white
+                                  shadow-[2px_2px_0_#000] font-bold text-sm">
+                            REGISTER
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        @RenderBody()
+    </main>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

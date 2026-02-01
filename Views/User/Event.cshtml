@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Events";
+    Layout = "~/Views/Shared/_Layout.navbar.cshtml";
+}
+
+<!-- PAGE HEADER -->
+<div class="bg-white border-4 border-black shadow-[6px_6px_0_#000] p-6 mb-8">
+    <h1 class="text-3xl font-extrabold tracking-wide mb-2">
+        🎉 Events
+    </h1>
+    <p class="text-sm text-gray-700">
+        Join special events and earn exclusive rewards.
+    </p>
+</div>
+
+<!-- EVENT LIST -->
+<div class="grid md:grid-cols-3 gap-6">
+
+    <!-- EVENT CARD -->
+    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
+        <h3 class="font-extrabold mb-1">🔥 Double Top-Up Bonus</h3>
+        <p class="text-sm mb-3">
+            Get 2× rewards for every top-up.
+        </p>
+
+        <span class="inline-block text-xs font-bold mb-3">
+            Ends in 3 days
+        </span>
+
+        <a asp-controller="User" asp-action="TopUp"
+           class="block text-center px-3 py-1 border-2 border-black bg-[#FFCB05]
+                  shadow-[2px_2px_0_#000] hover:translate-x-[1px]
+                  hover:translate-y-[1px] hover:shadow-none font-bold">
+            JOIN
+        </a>
+    </div>
+
+    <!-- EVENT CARD -->
+    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
+        <h3 class="font-extrabold mb-1">🎁 Login Reward Week</h3>
+        <p class="text-sm mb-3">
+            Login daily to receive free items.
+        </p>
+
+        <span class="inline-block text-xs font-bold mb-3">
+            Ongoing
+        </span>
+
+        <button
+            class="w-full px-3 py-1 border-2 border-black bg-white
+                   shadow-[2px_2px_0_#000] font-bold cursor-default">
+            AUTO JOINED
+        </button>
+    </div>
+
+    <!-- EVENT CARD -->
+    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
+        <h3 class="font-extrabold mb-1">⚔️ PvP Tournament</h3>
+        <p class="text-sm mb-3">
+            Compete and win rare items.
+        </p>
+
+        <span class="inline-block text-xs font-bold mb-3">
+            Starts soon
+        </span>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <button
+                class="w-full px-3 py-1 border-2 border-black bg-[#3B4CCA]
+                       text-white shadow-[2px_2px_0_#000] font-bold">
+                REGISTER
+            </button>
+        }
+        else
+        {
+            <a asp-controller="Auth" asp-action="Login"
+               class="block text-center px-3 py-1 border-2 border-black bg-white
+                      shadow-[2px_2px_0_#000] font-bold">
+                LOGIN TO JOIN
+            </a>
+        }
+    </div>
+
+</div>
