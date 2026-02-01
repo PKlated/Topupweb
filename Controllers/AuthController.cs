@@ -15,8 +15,8 @@ public class AuthController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string username, string password)
     {
-        // ===== MOCK API CALL =====
-        var apiResult = MockLoginApi(username, password);
+        // ===== MOCK LOGIN =====
+        var apiResult = MockLogin(username, password);
 
         if (!apiResult.Success)
         {
@@ -24,11 +24,18 @@ public class AuthController : Controller
             return View();
         }
 
-        // ===== CREATE TOKEN (CLAIMS) =====
+        if (apiResult.AccountStatus == "Banned")
+        {
+            ViewBag.Error = "This account has been banned.";
+            return View();
+        }
+
+        // ===== CLAIMS =====
         var claims = new List<Claim>
         {
+            new Claim(ClaimTypes.NameIdentifier, apiResult.UserId.ToString()),
             new Claim(ClaimTypes.Name, apiResult.Username),
-            new Claim("AccessToken", apiResult.Token)
+            new Claim(ClaimTypes.Role, apiResult.Role),
         };
 
         var identity = new ClaimsIdentity(
@@ -36,17 +43,21 @@ public class AuthController : Controller
             CookieAuthenticationDefaults.AuthenticationScheme
         );
 
-        var principal = new ClaimsPrincipal(identity);
-
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
-            principal
+            new ClaimsPrincipal(identity)
         );
 
-        return RedirectToAction("Home", "User");
+        // ===== REDIRECT =====
+        return apiResult.Role switch
+        {
+            "SuperAdmin" => RedirectToAction("AccountManagement", "SuperAdmin"),
+            "GameAdmin"  => RedirectToAction("Profit", "SuperAdmin"),
+            "GameMaster" => RedirectToAction("RequestReport", "SuperAdmin"),
+            _            => RedirectToAction("Home", "User")
+        };
     }
 
-    // LOGOUT
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync(
@@ -56,27 +67,27 @@ public class AuthController : Controller
         return RedirectToAction("Login");
     }
 
-    // GET: /Auth/Register
-    public IActionResult Register()
-    {
-        return View();
-    }
-
     // ============================
-    // MOCK API (TEMP)
+    // MOCK DATA
     // ============================
-    private (bool Success, string Username, string Token) MockLoginApi(string username, string password)
+    private (bool Success, int UserId, string Username, string Role, string AccountStatus)
+        MockLogin(string username, string password)
     {
         if (username == "user" && password == "1234")
-        {
-            return (true, "user", "mock-token-user-123");
-        }
+            return (true, 1, "user", "User", "Active");
+
+        if (username == "gm" && password == "gm")
+            return (true, 2, "gm", "GameMaster", "Active");
 
         if (username == "admin" && password == "admin")
-        {
-            return (true, "admin", "mock-token-admin-999");
-        }
+            return (true, 3, "admin", "GameAdmin", "Active");
 
-        return (false, null, null);
+        if (username == "super" && password == "super")
+            return (true, 4, "super", "SuperAdmin", "Active");
+
+        if (username == "banned" && password == "banned")
+            return (true, 5, "banned", "User", "Banned");
+
+        return (false, 0, null, null, null);
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Topupweb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+344f2ed5d80809bf16da5e8efb325e5aff2e09c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Topupweb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Topupweb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

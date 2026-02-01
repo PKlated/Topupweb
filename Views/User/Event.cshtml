@@ -1,85 +1,182 @@
 @{
     ViewData["Title"] = "Events";
     Layout = "~/Views/Shared/_Layout.navbar.cshtml";
+
+    // MOCK EVENT DATA (replace later)
+    var events = new[]
+    {
+        new {
+            Id = 1,
+            Title = "Double Top-Up Bonus",
+            ShortDesc = "Get 2× rewards for every top-up.",
+            FullDesc = "During this event, every top-up package will grant double the gems. Applies to all packages.",
+            Status = "Ongoing",
+            Time = "Ends in 3 days"
+        },
+        new {
+            Id = 2,
+            Title = "Login Reward Week",
+            ShortDesc = "Login daily to receive free items.",
+            FullDesc = "Login each day to earn gems, tickets, and limited rewards.",
+            Status = "Ongoing",
+            Time = "Ongoing"
+        },
+        new {
+            Id = 3,
+            Title = "PvP Tournament",
+            ShortDesc = "Compete with players and win rare items.",
+            FullDesc = "Register for the PvP Tournament and battle for exclusive rewards.",
+            Status = "Upcoming",
+            Time = "Starts soon"
+        }
+    };
 }
 
 <!-- PAGE HEADER -->
-<div class="bg-white border-4 border-black shadow-[6px_6px_0_#000] p-6 mb-8">
-    <h1 class="text-3xl font-extrabold tracking-wide mb-2">
-        🎉 Events
-    </h1>
+<div class="bg-white border-4 border-black shadow-[6px_6px_0_#000] p-6 mb-6">
+    <h1 class="text-3xl font-extrabold mb-2">Events</h1>
     <p class="text-sm text-gray-700">
-        Join special events and earn exclusive rewards.
+        Browse current and upcoming game events.
     </p>
 </div>
 
-<!-- EVENT LIST -->
-<div class="grid md:grid-cols-3 gap-6">
+<!-- FILTER -->
+<div class="flex gap-3 mb-6">
+    <button onclick="filterEvents('All')"
+            class="px-4 py-1 border-2 border-black bg-white font-bold">
+        All
+    </button>
+    <button onclick="filterEvents('Ongoing')"
+            class="px-4 py-1 border-2 border-black bg-white font-bold">
+        Ongoing
+    </button>
+    <button onclick="filterEvents('Upcoming')"
+            class="px-4 py-1 border-2 border-black bg-white font-bold">
+        Upcoming
+    </button>
+</div>
 
-    <!-- EVENT CARD -->
-    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
-        <h3 class="font-extrabold mb-1">🔥 Double Top-Up Bonus</h3>
-        <p class="text-sm mb-3">
-            Get 2× rewards for every top-up.
-        </p>
+<!-- EVENT LIST (LONG RECTANGLE) -->
+<div class="space-y-4">
 
-        <span class="inline-block text-xs font-bold mb-3">
-            Ends in 3 days
-        </span>
+@foreach (var e in events)
+{
+    <div class="event-row flex gap-4 bg-white border-4 border-black
+                shadow-[4px_4px_0_#000] p-4 cursor-pointer"
+         data-status="@e.Status"
+         onclick="openEvent(
+            '@e.Title',
+            '@e.FullDesc',
+            '@e.Status',
+            '@e.Time')">
 
-        <a asp-controller="User" asp-action="TopUp"
-           class="block text-center px-3 py-1 border-2 border-black bg-[#FFCB05]
-                  shadow-[2px_2px_0_#000] hover:translate-x-[1px]
-                  hover:translate-y-[1px] hover:shadow-none font-bold">
-            JOIN
-        </a>
+        <!-- BANNER -->
+        <div class="w-56 h-28 bg-gray-200 border-2 border-black
+                    flex items-center justify-center
+                    font-bold text-gray-500 shrink-0">
+            EVENT BANNER
+        </div>
+
+        <!-- INFO -->
+        <div class="flex-1">
+            <h3 class="text-xl font-extrabold mb-1">
+                @e.Title
+            </h3>
+
+            <p class="text-sm text-gray-700 mb-2">
+                @e.ShortDesc
+            </p>
+
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold">
+                    @e.Time
+                </span>
+
+                <span class="px-2 py-1 border-2 border-black text-xs font-bold
+                             @(e.Status == "Ongoing" ? "bg-[#4CAF50] text-white" : "bg-[#FFCB05]")">
+                    @e.Status.ToUpper()
+                </span>
+            </div>
+        </div>
     </div>
-
-    <!-- EVENT CARD -->
-    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
-        <h3 class="font-extrabold mb-1">🎁 Login Reward Week</h3>
-        <p class="text-sm mb-3">
-            Login daily to receive free items.
-        </p>
-
-        <span class="inline-block text-xs font-bold mb-3">
-            Ongoing
-        </span>
-
-        <button
-            class="w-full px-3 py-1 border-2 border-black bg-white
-                   shadow-[2px_2px_0_#000] font-bold cursor-default">
-            AUTO JOINED
-        </button>
-    </div>
-
-    <!-- EVENT CARD -->
-    <div class="bg-white border-4 border-black p-4 shadow-[4px_4px_0_#000]">
-        <h3 class="font-extrabold mb-1">⚔️ PvP Tournament</h3>
-        <p class="text-sm mb-3">
-            Compete and win rare items.
-        </p>
-
-        <span class="inline-block text-xs font-bold mb-3">
-            Starts soon
-        </span>
-
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <button
-                class="w-full px-3 py-1 border-2 border-black bg-[#3B4CCA]
-                       text-white shadow-[2px_2px_0_#000] font-bold">
-                REGISTER
-            </button>
-        }
-        else
-        {
-            <a asp-controller="Auth" asp-action="Login"
-               class="block text-center px-3 py-1 border-2 border-black bg-white
-                      shadow-[2px_2px_0_#000] font-bold">
-                LOGIN TO JOIN
-            </a>
-        }
-    </div>
+}
 
 </div>
+
+<!-- EVENT DETAIL MODAL -->
+<div id="eventModal"
+     class="fixed inset-0 bg-black/50 hidden
+            items-center justify-center z-50">
+
+    <div class="bg-white border-4 border-black
+                shadow-[6px_6px_0_#000]
+                p-6 max-w-xl w-full">
+
+        <h2 id="modalTitle"
+            class="text-2xl font-extrabold mb-2"></h2>
+
+        <p id="modalDesc"
+           class="text-sm text-gray-700 mb-4"></p>
+
+        <p class="text-sm mb-1">
+            <span class="font-bold">Status:</span>
+            <span id="modalStatus"></span>
+        </p>
+
+        <p class="text-sm mb-4">
+            <span class="font-bold">Time:</span>
+            <span id="modalTime"></span>
+        </p>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeEvent()"
+                    class="px-4 py-2 border-2 border-black
+                           bg-white font-bold">
+                CLOSE
+            </button>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-controller="User" asp-action="TopUp"
+                   class="px-4 py-2 border-2 border-black
+                          bg-[#FFCB05] font-bold">
+                    JOIN
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login"
+                   class="px-4 py-2 border-2 border-black
+                          bg-white font-bold">
+                    LOGIN
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterEvents(status) {
+        document.querySelectorAll('.event-row').forEach(row => {
+            if (status === 'All' || row.dataset.status === status) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    function openEvent(title, desc, status, time) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('modalStatus').innerText = status;
+        document.getElementById('modalTime').innerText = time;
+        document.getElementById('eventModal').classList.remove('hidden');
+        document.getElementById('eventModal').classList.add('flex');
+    }
+
+    function closeEvent() {
+        document.getElementById('eventModal').classList.add('hidden');
+        document.getElementById('eventModal').classList.remove('flex');
+    }
+</script>

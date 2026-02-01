@@ -1,0 +1,99 @@
+@using System.Security.Claims
+@{
+    var role = User.FindFirstValue(ClaimTypes.Role);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#F8F8F8] text-black min-h-screen flex">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-white border-r-4 border-black
+                  shadow-[4px_0_0_#000] flex flex-col">
+
+        <!-- LOGO -->
+        <div class="p-5 border-b-4 border-black">
+            <h1 class="text-2xl font-extrabold tracking-widest">GAMEWEB</h1>
+            <p class="text-xs font-bold mt-1">@role PANEL</p>
+        </div>
+
+        <!-- NAV -->
+        <nav class="flex-1 p-4 space-y-2 font-bold">
+
+            <!-- GAME ADMIN + SUPER ADMIN -->
+            @if (role == "GameAdmin" || role == "SuperAdmin")
+            {
+                <a asp-controller="SuperAdmin" asp-action="Profit"
+                   class="nav-btn">💰 Profit</a>
+
+                <a asp-controller="SuperAdmin" asp-action="UserPaymentLog"
+                   class="nav-btn">🧾 Payment Logs</a>
+
+                <a asp-controller="SuperAdmin" asp-action="TopupPriceEdit"
+                   class="nav-btn">💎 Top-Up Price</a>
+
+                <a asp-controller="SuperAdmin" asp-action="UserList"
+                   class="nav-btn">👤 User List</a>
+            }
+
+            <!-- GAME MASTER + SUPER ADMIN -->
+            @if (role == "GameMaster" || role == "SuperAdmin")
+            {
+                <a asp-controller="SuperAdmin" asp-action="RequestReport"
+                   class="nav-btn">📩 Request Reports</a>
+
+                <a asp-controller="SuperAdmin" asp-action="PlayerList"
+                   class="nav-btn">🎮 Player List</a>
+
+                <a asp-controller="SuperAdmin" asp-action="GameServerStatus"
+                   class="nav-btn">🖥 Server Status</a>
+            }
+
+            <!-- SUPER ADMIN ONLY -->
+            @if (role == "SuperAdmin")
+            {
+                <a asp-controller="SuperAdmin" asp-action="AccountManagement"
+                   class="nav-btn bg-[#E3350D] text-white hover:bg-black">
+                    🔑 Account Management
+                </a>
+            }
+
+        </nav>
+
+        <!-- LOGOUT -->
+        <div class="p-4 border-t-4 border-black">
+            <a asp-controller="Auth" asp-action="Logout"
+               class="block text-center px-3 py-2 border-2 border-black
+                      bg-[#E3350D] text-white font-extrabold
+                      shadow-[2px_2px_0_#000] hover:opacity-90">
+                LOGOUT
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1 p-6">
+        @RenderBody()
+    </main>
+
+</body>
+</html>
+
+<style>
+    .nav-btn {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        border: 2px solid black;
+        box-shadow: 2px 2px 0 #000;
+    }
+    .nav-btn:hover {
+        background: #FFCB05;
+    }
+</style>

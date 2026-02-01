@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Request Report";
+    Layout = "~/Views/Shared/_Layout.navbarAdmin.cshtml";
+}
+
+<!-- PAGE HEADER -->
+<div class="bg-white border-4 border-black shadow-[6px_6px_0_#000] p-6 mb-6">
+    <h1 class="text-3xl font-extrabold tracking-wide mb-2">
+        REQUEST REPORT
+    </h1>
+    <p class="text-sm text-gray-700">
+        View and manage player reports.
+    </p>
+</div>
+
+<!-- REPORT LIST -->
+<div class="space-y-4">
+
+    <!-- REPORT ROW -->
+    <div class="flex items-center justify-between bg-white border-4 border-black
+                shadow-[4px_4px_0_#000] p-4">
+
+        <div>
+            <p class="font-extrabold">Report #001</p>
+            <p class="text-sm text-gray-700">
+                Player reported for suspicious activity.
+            </p>
+        </div>
+
+        <div class="flex gap-2">
+            <a asp-action="Details" asp-route-id="1"
+               class="px-3 py-1 border-2 border-black bg-white
+                      shadow-[2px_2px_0_#000] font-bold hover:shadow-none">
+                VIEW
+            </a>
+
+            <button class="px-3 py-1 border-2 border-black bg-[#E3350D]
+                           text-white font-bold shadow-[2px_2px_0_#000]
+                           hover:shadow-none">
+                RESOLVE
+            </button>
+        </div>
+    </div>
+
+    <!-- REPORT ROW -->
+    <div class="flex items-center justify-between bg-white border-4 border-black
+                shadow-[4px_4px_0_#000] p-4">
+
+        <div>
+            <p class="font-extrabold">Report #002</p>
+            <p class="text-sm text-gray-700">
+                Bug abuse during event.
+            </p>
+        </div>
+
+        <div class="flex gap-2">
+            <a asp-action="Details" asp-route-id="2"
+               class="px-3 py-1 border-2 border-black bg-white
+                      shadow-[2px_2px_0_#000] font-bold hover:shadow-none">
+                VIEW
+            </a>
+
+            <button class="px-3 py-1 border-2 border-black bg-[#E3350D]
+                           text-white font-bold shadow-[2px_2px_0_#000]
+                           hover:shadow-none">
+                RESOLVE
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER NOTE -->
+<p class="mt-6 text-sm text-gray-600">
+    Only GameMaster and SuperAdmin can manage reports.
+</p>

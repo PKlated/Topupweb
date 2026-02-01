@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+
 // MVC
 builder.Services.AddControllersWithViews();
 

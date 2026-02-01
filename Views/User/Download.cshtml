@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Download";
+    Layout = "~/Views/Shared/_Layout.navbar.cshtml";
+}
+
+<!-- HERO SECTION -->
+<div class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+
+    <!-- BACKGROUND PLACEHOLDER -->
+    <div class="absolute inset-0
+                bg-gray-200
+                border-b-4 border-black">
+        <!-- 
+            🔻 Replace this div with:
+            <img src="~/images/download-bg.jpg" class="w-full h-full object-cover" />
+        -->
+        <div class="w-full h-full flex items-center justify-center">
+            <span class="text-gray-500 font-extrabold text-xl">
+                BACKGROUND ART PLACEHOLDER
+            </span>
+        </div>
+    </div>
+
+    <!-- DARK OVERLAY -->
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <!-- CONTENT -->
+    <div class="relative z-10 text-center text-white px-4">
+
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide mb-4 drop-shadow">
+            GAMEWEB
+        </h1>
+
+        <p class="text-sm md:text-base max-w-md mx-auto mb-10 opacity-90">
+            Enter the world. Download the client and begin your adventure.
+        </p>
+
+        <!-- DOWNLOAD BUTTON -->
+        <a href="#"
+           class="inline-block px-14 py-4
+                  border-4 border-black
+                  bg-[#4CAF50]
+                  shadow-[8px_8px_0_#000]
+                  hover:translate-x-[3px] hover:translate-y-[3px]
+                  hover:shadow-none
+                  font-extrabold text-lg text-white">
+            DOWNLOAD NOW
+        </a>
+
+        <!-- PLATFORM TEXT -->
+        <p class="mt-6 text-xs opacity-80">
+            Available on Windows • macOS (Coming Soon)
+        </p>
+
+    </div>
+</div>

@@ -14,10 +14,10 @@
 <!-- PAGE HEADER -->
 <div class="bg-white border-4 border-black shadow-[6px_6px_0_#000] p-6 mb-8">
     <h1 class="text-3xl font-extrabold tracking-wide mb-2">
-        USER INVENTORY
+        INVENTORY
     </h1>
     <p class="text-sm text-gray-700">
-        View all items and currencies linked to your account.
+        Your items, just like a Pokémon party.
     </p>
 </div>
 
@@ -57,28 +57,47 @@ else
     }
     else
     {
-        <!-- INVENTORY GRID -->
-        <div class="grid md:grid-cols-3 gap-6">
+        <!-- POKEMON PARTY STYLE GRID -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach (var item in inventoryItems)
             {
-                <div class="bg-white border-4 border-black shadow-[4px_4px_0_#000] p-5">
-                    <h3 class="text-xl font-extrabold mb-1">
-                        @item.Name
-                    </h3>
+                <div class="bg-white border-4 border-black shadow-[4px_4px_0_#000]
+                            flex items-center p-4 gap-4">
 
-                    <p class="text-sm text-gray-600 mb-2">
-                        Type: <span class="font-bold">@item.Type</span>
-                    </p>
+                    <!-- ICON SLOT -->
+                    <div class="w-16 h-16 flex items-center justify-center
+                                border-4 border-black bg-gray-100
+                                shadow-[3px_3px_0_#000] font-extrabold text-sm">
+                        <!-- Replace later with image -->
+                        ITEM
+                    </div>
 
-                    <p class="text-sm mb-2">
-                        Quantity:
-                        <span class="font-extrabold text-lg">@item.Quantity</span>
-                    </p>
+                    <!-- ITEM INFO -->
+                    <div class="flex-1">
 
-                    <p class="text-xs text-gray-500">
-                        Obtained on @item.Obtained
-                    </p>
+                        <p class="text-lg font-extrabold leading-tight">
+                            @item.Name
+                        </p>
+
+                        <p class="text-xs text-gray-600 mb-1">
+                            @item.Type
+                        </p>
+
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">
+                                Qty:
+                                <span class="font-extrabold text-lg">
+                                    @item.Quantity
+                                </span>
+                            </span>
+
+                            <span class="text-xs text-gray-500">
+                                @item.Obtained
+                            </span>
+                        </div>
+
+                    </div>
                 </div>
             }
 

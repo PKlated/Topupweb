@@ -95,3 +95,4 @@ C:\Users\Put_2\Documents\PK\WOrk\Dev\402\Topupweb\obj\Debug\net10.0\refint\Topup
 C:\Users\Put_2\Documents\PK\WOrk\Dev\402\Topupweb\obj\Debug\net10.0\Topupweb.pdb
 C:\Users\Put_2\Documents\PK\WOrk\Dev\402\Topupweb\obj\Debug\net10.0\Topupweb.genruntimeconfig.cache
 C:\Users\Put_2\Documents\PK\WOrk\Dev\402\Topupweb\obj\Debug\net10.0\ref\Topupweb.dll
+C:\Users\Put_2\Documents\PK\WOrk\Dev\402\Topupweb\obj\Debug\net10.0\Topupweb.sourcelink.json
